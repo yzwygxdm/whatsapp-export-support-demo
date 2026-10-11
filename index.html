@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f7">
+  <meta name="description" content="A reusable WhatsApp export sales and after-sales support demo.">
+  <title>Harbor — WhatsApp Export Support Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="demo-ribbon"><span class="pulse"></span> DEMO MODE <span class="ribbon-divider">·</span> Sample conversations only</div>
+  <div class="app-shell">
+    <aside class="nav-rail">
+      <a class="brand" href="#" aria-label="Harbor home"><span class="brand-mark">h</span><span class="brand-name">harbor<span>.</span></span></a>
+      <div class="workspace-switch"><div class="workspace-avatar">N</div><div class="workspace-copy"><strong>Northstar Trading</strong><small>Workspace</small></div><span class="chevron">⌄</span></div>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item"><span class="nav-icon">◫</span> Overview</button>
+        <button class="nav-item active"><span class="nav-icon">▤</span> Inbox <span class="nav-count">4</span></button>
+        <button class="nav-item"><span class="nav-icon">♧</span> Contacts</button>
+        <button class="nav-item"><span class="nav-icon">◇</span> Products</button>
+        <button class="nav-item"><span class="nav-icon">▣</span> Workflows</button>
+      </nav>
+      <div class="nav-caption channels-caption">CHANNELS</div>
+      <button class="channel-item"><span class="wa-icon">◉</span> WhatsApp <span class="connected-dot"></span></button>
+      <div class="nav-bottom"><div class="help-card"><span class="help-star">✳</span><strong>Your support, on autopilot</strong><p>AI answers the everyday questions. Your team takes the important ones.</p><button class="help-link">Explore workflows <span>↗</span></button></div><button class="profile"><span class="profile-pic">JL</span><span><strong>Jamie Lee</strong><small>Admin</small></span><span class="more">···</span></button></div>
+    </aside>
+
+    <main class="inbox-area">
+      <header class="topbar"><div><div class="eyebrow">CUSTOMER MESSAGING</div><h1>Inbox <span class="live-pill"><i></i> All systems live</span></h1></div><div class="top-actions"><span class="top-date">Tuesday, 14 October</span><button class="icon-button" aria-label="Notifications">♧<i class="notification-dot"></i></button><button class="avatar-small">JL</button></div></header>
+      <section class="inbox-workspace">
+        <aside class="conversation-list">
+          <div class="list-heading"><div><h2>Conversations</h2><span class="muted-label">12 open</span></div><button class="small-icon" aria-label="Filter conversations">☷</button></div>
+          <div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search conversations" aria-label="Search conversations"><kbd>⌘ K</kbd></div>
+          <div class="inbox-tabs"><button class="tab-active">Open <span>12</span></button><button>Mine <span>3</span></button><button>Closed</button></div>
+          <div class="conversation-items" id="conversationList">
+            <button class="conversation selected" data-name="Sofia Müller" data-issue="New product enquiry" data-avatar="SM" data-tone="sage" data-state="lead">
+              <span class="contact-avatar sage">SM</span><span class="conversation-body"><span class="conversation-title"><strong>Sofia Müller</strong><time>2m</time></span><span class="conversation-preview">Could you share pricing for 500 units?</span><span class="conversation-meta"><span class="source-tag"><b>◉</b> WhatsApp</span><span class="unread-dot"></span></span></span>
+            </button>
+            <button class="conversation" data-name="Mateo Santos" data-issue="Delivery follow-up" data-avatar="MS" data-tone="amber" data-state="support">
+              <span class="contact-avatar amber">MS</span><span class="conversation-body"><span class="conversation-title"><strong>Mateo Santos</strong><time>18m</time></span><span class="conversation-preview">The tracking hasn't updated in 4 days</span><span class="conversation-meta"><span class="source-tag"><b>◉</b> WhatsApp</span><span class="tag-urgent">Priority</span></span></span>
+            </button>
+            <button class="conversation" data-name="Amara Okafor" data-issue="Sample request" data-avatar="AO" data-tone="lavender" data-state="lead">
+              <span class="contact-avatar lavender">AO</span><span class="conversation-body"><span class="conversation-title"><strong>Amara Okafor</strong><time>1h</time></span><span class="conversation-preview">Do you offer samples before a bulk order?</span><span class="conversation-meta"><span class="source-tag"><b>◉</b> WhatsApp</span></span></span>
+            </button>
+            <button class="conversation" data-name="Luca Bianchi" data-issue="Product specifications" data-avatar="LB" data-tone="blue" data-state="lead">
+              <span class="contact-avatar blue">LB</span><span class="conversation-body"><span class="conversation-title"><strong>Luca Bianchi</strong><time>3h</time></span><span class="conversation-preview">Is the outer shell food grade?</span><span class="conversation-meta"><span class="source-tag"><b>◉</b> WhatsApp</span></span></span>
+            </button>
+          </div>
+          <button class="load-more">View all conversations <span>→</span></button>
+        </aside>
+
+        <section class="chat-panel" aria-label="Conversation">
+          <div class="chat-header"><div class="chat-person"><span class="contact-avatar sage" id="headerAvatar">SM</span><span><strong id="chatName">Sofia Müller</strong><small><i class="online-dot"></i> WhatsApp · Germany</small></span></div><div class="chat-header-actions"><button class="header-action">✧ <span>AI summary</span></button><button class="icon-button">⋯</button></div></div>
+          <div class="chat-context"><span class="context-icon">✦</span><span><strong id="issueText">New product enquiry</strong><small>Started from WhatsApp · Today at 10:42 AM</small></span><button class="context-close" aria-label="Dismiss context">×</button></div>
+          <div class="messages" id="messages">
+            <div class="date-divider"><span>Today, 10:42 AM</span></div>
+            <div class="message-row incoming"><span class="mini-avatar sage">SM</span><div class="message-content"><span class="sender">Sofia Müller</span><div class="bubble">Hi! I'm interested in your stainless steel insulated bottles. Could you share pricing for 500 units?</div><time>10:42 AM</time></div></div>
+            <div class="message-row outgoing"><div class="message-content"><span class="sender">Harbor AI <span class="ai-tiny">✦ AI</span></span><div class="bubble">Hi Sofia! Happy to help with a quote for 500 units. Could you share the bottle size and your delivery country so I can pass the right details to our sales team?</div><time>10:42 AM <span class="read-check">✓✓</span></time></div><span class="bot-avatar">✦</span></div>
+            <div class="message-row incoming"><span class="mini-avatar sage">SM</span><div class="message-content"><span class="sender">Sofia Müller</span><div class="bubble">750 ml, delivered to Berlin, Germany. We need them by mid-June.</div><time>10:44 AM</time></div></div>
+            <div class="message-row outgoing"><div class="message-content"><span class="sender">Harbor AI <span class="ai-tiny">✦ AI</span></span><div class="bubble">Thanks, I've got that. I've sent your request to our sales team to confirm pricing and lead time. They'll follow up with you shortly. Is there a logo or color you'd like us to include?</div><time>10:44 AM <span class="read-check">✓✓</span></time></div><span class="bot-avatar">✦</span></div>
+            <div class="system-event"><span>✧</span> Lead details captured · Assigned to <strong>Sales team</strong></div>
+          </div>
+          <div class="quick-replies"><span>Try a scenario</span><button data-scenario="price">↗ Price enquiry</button><button data-scenario="shipping">⌁ Delivery issue</button><button data-scenario="sample">◇ Sample request</button></div>
+          <div class="composer"><button class="composer-plus" aria-label="Add attachment">＋</button><input id="messageInput" type="text" placeholder="Type a message..." aria-label="Type a message"><button class="emoji-button" aria-label="Emoji">☺</button><button class="send-button" id="sendButton" aria-label="Send message">↑</button></div>
+          <div class="composer-note"><span>✦ AI is handling this conversation</span><span>↵ to send</span></div>
+        </section>
+
+        <aside class="contact-panel">
+          <div class="contact-panel-head"><span>CONTACT DETAILS</span><button class="small-icon">···</button></div>
+          <div class="contact-profile"><span class="profile-large sage" id="profileAvatar">SM</span><h2 id="profileName">Sofia Müller</h2><span class="customer-type"><span></span> New lead</span><button class="edit-contact">✎ Edit contact</button></div>
+          <div class="detail-section"><div class="section-title">CUSTOMER INFORMATION <button>⌄</button></div><div class="detail-row"><span class="detail-icon">✉</span><span><small>Email</small><strong>Not provided</strong></span><button class="row-add">+</button></div><div class="detail-row"><span class="detail-icon">▧</span><span><small>Phone</small><strong>+49 151 ···· 9021</strong></span></div><div class="detail-row"><span class="detail-icon">⌖</span><span><small>Country</small><strong>Germany <span class="flag">🇩🇪</span></strong></span></div></div>
+          <div class="detail-section captured-section"><div class="section-title">AI CAPTURED <span class="captured-count">3</span><button>⌄</button></div><div class="captured-row"><span>Product</span><strong>Insulated bottle</strong></div><div class="captured-row"><span>Quantity</span><strong>500 units</strong></div><div class="captured-row"><span>Requirement</span><strong>750 ml · Berlin</strong></div><div class="captured-row"><span>Needed by</span><strong>Mid-June</strong></div></div>
+          <div class="detail-section ticket-section"><div class="section-title">LINKED RECORDS <button>⌄</button></div><div class="record-card"><span class="record-icon lead-icon">↗</span><span><small>SALES LEAD</small><strong>New quote request</strong><em>Created just now</em></span><span class="record-arrow">↗</span></div></div>
+          <div class="contact-footer"><button class="takeover-button" id="takeoverButton"><span>↗</span> Take over conversation</button><small>AI will pause when a teammate replies</small></div>
+        </aside>
+      </section>
+      <footer class="app-footer"><span>◉ WhatsApp connected <i></i></span><span>Harbor Demo <b>·</b> All data is simulated for preview</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
