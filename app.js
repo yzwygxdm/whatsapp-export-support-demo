@@ -20,7 +20,7 @@ function addMessage(text, type, name = null) {
   const avatar = isIncoming
     ? `<span class="mini-avatar ${$('#headerAvatar').className.split(' ').at(-1)}">${$('#headerAvatar').textContent}</span>`
     : `<span class="bot-avatar">${isHuman ? 'JL' : '✦'}</span>`;
-  const sender = isIncoming ? ($('#chatName').textContent) : (isHuman ? 'Jamie Lee' : 'Harbor AI <span class="ai-tiny">✦ AI</span>');
+  const sender = isIncoming ? ($('#chatName').textContent) : (isHuman ? 'Jamie Lee' : 'Support AI <span class="ai-tiny">✦ AI</span>');
   const content = document.createElement('div');
   content.className = 'message-content';
   const senderEl = document.createElement('span');
@@ -117,7 +117,7 @@ $('#takeoverButton').addEventListener('click', (event) => {
     button.style.color = '';
     note.textContent = '✦ AI is handling this conversation';
     support.textContent = 'AI will pause when a teammate replies';
-    showToast('Harbor AI is active again');
+    showToast('Support AI is active again');
   }
 });
 

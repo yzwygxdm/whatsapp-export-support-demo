@@ -1,4 +1,4 @@
-# Harbor · WhatsApp Export Support Demo
+# WhatsApp Export Support Demo
 
 A reusable, browser-only prototype for an export sales and after-sales WhatsApp assistant. It includes a simulated team inbox, English customer conversations, lead capture, support triage, and an AI-to-human handoff.
 
