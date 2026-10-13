@@ -102,4 +102,4 @@ const server = http.createServer(async (req, res) => {
   fs.createReadStream(file).pipe(res);
 });
 
-server.listen(port, () => console.log(`Export Support Agent demo listening on http://localhost:${port} (${apiKey ? `AI: ${model}` : 'demo mode'})`));
+server.listen(port, '127.0.0.1', () => console.log(`Export Support Agent demo listening on http://localhost:${port} (${apiKey ? `AI: ${model}` : 'demo mode'})`));
