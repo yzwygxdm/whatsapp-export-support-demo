@@ -20,7 +20,7 @@ The API key stays on the server and is never sent to the browser. In demo mode, 
 
 ## Static preview
 
-The GitHub Pages workflow deploys the interface. GitHub Pages cannot run the Node agent server, so its chat uses the built-in rule-based fallback. For live AI, run the service locally or deploy `server.js` to a trusted backend and configure the API URL for the frontend.
+The GitHub Pages workflow deploys the interface. GitHub Pages cannot run the Node agent server, so its chat uses the built-in rule-based fallback. For live AI, deploy `server.js` to a trusted backend, set `FRONTEND_ORIGIN` to the Pages site origin, and set the `agent-api-base` meta tag in `index.html` to that backend's base URL.
 
 ## Production integration
 

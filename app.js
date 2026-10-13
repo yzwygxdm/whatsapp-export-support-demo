@@ -2,12 +2,13 @@ const $ = (selector) => document.querySelector(selector);
 const messages = $('#messages');
 const input = $('#messageInput');
 const toast = $('#toast');
+const agentApiBase = $('meta[name="agent-api-base"]')?.content.replace(/\/$/, '') || '';
 let toastTimer;
 let isHuman = false;
 let activeScenario = 'price';
 let chatHistory = [];
 
-fetch('/api/health').then((response) => response.ok ? response.json() : null).then((health) => {
+fetch(`${agentApiBase}/api/health`).then((response) => response.ok ? response.json() : null).then((health) => {
   if (health?.mode === 'ai') $('#modeLabel').textContent = `Live AI · ${health.model}`;
   else if (health?.mode === 'demo') $('#modeLabel').textContent = 'Agent demo · no API key';
 }).catch(() => {});
@@ -86,7 +87,7 @@ async function respond() {
   const button = $('#sendButton');
   button.disabled = true;
   try {
-    const response = await fetch('/api/chat', {
+    const response = await fetch(`${agentApiBase}/api/chat`, {
       method: 'POST', headers: {'content-type': 'application/json'},
       body: JSON.stringify({messages: chatHistory})
     });
