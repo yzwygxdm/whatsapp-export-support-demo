@@ -1,27 +1,27 @@
-# WhatsApp Export Support Demo
+# WhatsApp Export Support Agent Demo
 
-A reusable, browser-only prototype for an export sales and after-sales WhatsApp assistant. It includes a simulated team inbox, English customer conversations, lead capture, support triage, and an AI-to-human handoff.
+A lightweight sales and after-sales assistant demo for export teams. The inbox UI can run as a static preview, or connect to a small Node.js agent service that calls an OpenAI-compatible chat model. The agent can classify a request, collect quote/sample details, create demo lead or support records, and flag conversations for a human.
 
-## Preview
+## Run the agent locally
 
-Open `index.html` in a modern browser. No build step, account, or API key is needed.
+1. Install Node.js 18 or later.
+2. Copy `.env.example` to `.env`.
+3. Leave `OPENAI_API_KEY` blank for the safe demo mode, or add a model API key to enable live AI. `OPENAI_MODEL` and `OPENAI_CHAT_COMPLETIONS_URL` can be changed for a compatible provider.
+4. Run `node server.js` and open `http://localhost:4174`.
 
-Try the **Price enquiry**, **Delivery issue**, and **Sample request** scenario buttons below the conversation. Type a message in the composer, search the conversation list, or use **Take over conversation** to pause the demo bot and reply as an agent.
+The API key stays on the server and is never sent to the browser. In demo mode, the agent uses a small fallback intent router. With a key configured, the model receives a minimal sample catalog and policy prompt, and must return an allowlisted action. Model outputs can create only local demo records; they do not contact customers, look up real orders, or write to a CRM.
 
-## What is simulated
+## Try the workflows
 
-- All contacts, products, messages, order details, and times are sample data.
-- The chat replies use small browser-side rules; there is no language model or WhatsApp connection.
-- Lead capture, ticket creation, order lookup, and agent assignment are visual demonstrations. They do not save to a CRM or notify a real team.
+- Use **Price enquiry**, **Delivery issue**, and **Sample request** to exercise the agent.
+- Send a free-text message and see the reply, intent, and demo action.
+- **Take over conversation** pauses automated replies. The agent can also flag a handoff for a teammate.
+- Product facts and policies are illustrative. Add client-approved product, pricing, shipping, and warranty data before using the assistant for real advice.
 
-## Adapt it for a client
+## Static preview
 
-Replace the sample company and product content in `index.html`. Update the sample workflows in `app.js`, and tune the visual identity in `styles.css`. Keep product facts, approved pricing, shipping terms, warranty rules, and escalation contacts in client-owned settings or a connected knowledge base before using real customer conversations.
+The GitHub Pages workflow deploys the interface. GitHub Pages cannot run the Node agent server, so its chat uses the built-in rule-based fallback. For live AI, run the service locally or deploy `server.js` to a trusted backend and configure the API URL for the frontend.
 
-For production, connect the WhatsApp Business Platform through a provider or Cloud API, receive inbound messages through a webhook, persist conversations and tickets, and connect the team's CRM or order system. Add approved message templates and permission tracking for business-initiated messages. Keep the service-window rules and a clear human escalation path in the send workflow.
+## Production integration
 
-## Publish with GitHub Pages
-
-The included workflow deploys this static demo to GitHub Pages whenever changes reach the `main` branch. In the repository, choose **Settings → Pages → Build and deployment → Source: GitHub Actions** if Pages is not enabled automatically. The deployment URL will appear in the workflow run summary.
-
-This prototype is for product discussion and workflow review. It is not a live WhatsApp bot.
+This is not connected to WhatsApp or a CRM. A production rollout still needs the WhatsApp Business Platform/Cloud API or an approved provider, inbound webhooks, persistent conversations and tickets, order/CRM tools, approved outbound templates, opt-in tracking, and a human review path. Keep secrets on the backend, verify WhatsApp webhook signatures, and never let the model invent prices or claim an order action succeeded.

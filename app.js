@@ -5,6 +5,12 @@ const toast = $('#toast');
 let toastTimer;
 let isHuman = false;
 let activeScenario = 'price';
+let chatHistory = [];
+
+fetch('/api/health').then((response) => response.ok ? response.json() : null).then((health) => {
+  if (health?.mode === 'ai') $('#modeLabel').textContent = `Live AI · ${health.model}`;
+  else if (health?.mode === 'demo') $('#modeLabel').textContent = 'Agent demo · no API key';
+}).catch(() => {});
 
 function showToast(message) {
   toast.textContent = message;
@@ -72,7 +78,39 @@ function send() {
   if (!text) return;
   addMessage(text, 'incoming');
   input.value = '';
-  if (!isHuman) window.setTimeout(() => addMessage(botReply(text), 'outgoing'), 450);
+  chatHistory.push({role: 'user', content: text});
+  if (!isHuman) respond();
+}
+
+async function respond() {
+  const button = $('#sendButton');
+  button.disabled = true;
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST', headers: {'content-type': 'application/json'},
+      body: JSON.stringify({messages: chatHistory})
+    });
+    if (!response.ok) throw new Error('Agent service unavailable');
+    const result = await response.json();
+    if (result.error) throw new Error(result.error);
+    chatHistory.push({role: 'assistant', content: result.reply});
+    addMessage(result.reply, 'outgoing');
+    if (result.mode === 'ai') $('#modeLabel').textContent = 'Live AI · connected';
+    else if (result.mode === 'demo') $('#modeLabel').textContent = 'Agent demo · no API key';
+    if (result.record) {
+      const labels = {sales_lead: 'Lead captured', support_case: 'Support case created', human_handoff: 'Human handoff requested'};
+      showToast(`${labels[result.record.type] || 'Agent action'} · ${result.record.id}`);
+      if (result.action === 'handoff') {
+        isHuman = true;
+        $('#takeoverButton').innerHTML = '<span>✦</span> Return to AI';
+        document.querySelector('.composer-note span:first-child').textContent = 'Conversation flagged for a teammate';
+      }
+    }
+  } catch {
+    const fallback = botReply(chatHistory.at(-1)?.content || '');
+    chatHistory.push({role: 'assistant', content: fallback});
+    addMessage(fallback, 'outgoing');
+  } finally { button.disabled = false; }
 }
 
 $('#sendButton').addEventListener('click', send);
@@ -81,19 +119,16 @@ input.addEventListener('keydown', (event) => { if (event.key === 'Enter') send()
 document.querySelectorAll('[data-scenario]').forEach((button) => {
   button.addEventListener('click', () => {
     const scenario = button.dataset.scenario;
-    const scripts = {
-      price: ['Hi! Could you send me a quote for 500 stainless steel bottles?', 'Could you share the bottle size and delivery country? Then I can pass a complete request to our sales team.'],
-      shipping: ['My order has not arrived and tracking has not updated.', 'I’m sorry about the delay. Please share your order number and the email or phone number used at checkout so our team can verify it.'],
-      sample: ['Can I order a sample before placing a bulk order?', 'We can help with that. Which product and quantity would you like to sample, and where should we send it? Our team will confirm availability.']
+    const prompts = {
+      price: 'Hi! Could you send me a quote for 500 stainless steel bottles?',
+      shipping: 'My order has not arrived and tracking has not updated.',
+      sample: 'Can I order a sample before placing a bulk order?'
     };
     activeScenario = scenario;
-    addMessage(scripts[scenario][0], 'incoming');
-    window.setTimeout(() => {
-      addMessage(scripts[scenario][1], 'outgoing');
-      if (scenario === 'shipping') showToast('Support case ready · Demo order data');
-      else if (scenario === 'price') showToast('Lead details captured · Ready for sales');
-      else showToast('Sample request started · Ready for sales');
-    }, 400);
+    const prompt = prompts[scenario];
+    addMessage(prompt, 'incoming');
+    chatHistory.push({role: 'user', content: prompt});
+    if (!isHuman) respond();
   });
 });
 
@@ -134,6 +169,7 @@ document.querySelectorAll('.conversation').forEach((item) => {
     $('#headerAvatar').className = `contact-avatar ${tone}`;
     $('#profileAvatar').className = `profile-large ${tone}`;
     activeScenario = state === 'support' ? 'shipping' : 'price';
+    chatHistory = [];
     isHuman = false;
     $('#takeoverButton').innerHTML = '<span>↗</span> Take over conversation';
     document.querySelector('.composer-note span:first-child').textContent = '✦ AI is handling this conversation';
